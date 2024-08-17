@@ -31,7 +31,11 @@ class Server:
         assert isinstance(page_size, int) and page_size > 0
         start_index, end_index = index_range(page, page_size)
         dataset = self.dataset()
-        return dataset[start_index:end_index]
+        return {
+            'page_size': page_size,
+            page: page,
+            'data': dataset[start_index:end_index]
+            }
 
 
 def index_range(page: int, page_size: int) -> Tuple:
