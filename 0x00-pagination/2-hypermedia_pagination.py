@@ -37,8 +37,8 @@ class Server:
         """
         function that return file from csv file
          """
-        assert isinstance(page, int) and page > 0, "Page must be a positive integer"
-        assert isinstance(page_size, int) and page_size > 0, "Page size must be a positive integer"
+        assert type(page) == int and type(page_size) == int
+        assert page > 0 and page_size > 0
         start_index, end_index = index_range(page, page_size)
         dataset = self.dataset()
         if start_index > len(dataset):
