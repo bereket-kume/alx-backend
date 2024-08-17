@@ -17,7 +17,7 @@ def index_range(page: int, page_size: int) -> Tuple:
 class Server:
     """Server class to paginate a database of popular baby names.
     """
-    DATA_FILE = "7d3576d97e7560ae85135cc214ffe2b3412c51d7(1).csv"
+    DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
         self.__dataset = None
