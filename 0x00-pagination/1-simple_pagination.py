@@ -4,6 +4,16 @@ import math
 from typing import List, Tuple
 
 
+def index_range(page: int, page_size: int) -> Tuple:
+    """
+    function that takes two integer argument
+    return start index and end index
+    """
+    start_index = (page - 1) * page_size
+    end_index = page * page_size
+    return (start_index, end_index)
+
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -27,22 +37,10 @@ class Server:
         """
         function that return file from csv file
          """
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
+        assert type(page) == int and type(page_size) == int
+        assert page > 0 and page_size > 0
         start_index, end_index = index_range(page, page_size)
         dataset = self.dataset()
-        return {
-            'page_size': page_size,
-            page: page,
-            'data': dataset[start_index:end_index]
-            }
-
-
-def index_range(page: int, page_size: int) -> Tuple:
-    """
-    function that takes two integer argument
-    return start index and end index
-    """
-    start_index = (page - 1) * page_size
-    end_index = page * page_size
-    return (start_index, end_index)
+        if start_index > len(dataset):
+            return []
+        return dataset[start_index:end_index]
