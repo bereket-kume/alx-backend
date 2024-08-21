@@ -17,11 +17,14 @@ class LFUCache(BaseCaching):
         """
         super().__init__()
         self.cache_data = OrderedDict()
-        self.freq_count = {}
+        self.freq_count = defaultdict(int)
 
     def put(self, key, item):
         """
         Add Or update an item in the cache
+
+        if adding the item causes the cache to exceed its maximum size,
+        the lfu item is removed
         """
         if key is None or item is None:
             return
@@ -48,6 +51,12 @@ class LFUCache(BaseCaching):
             self.cache_data.move_to_end(key)
 
     def get(self, key):
+        """
+        Retrieve an item from the cache
+        MOves the item to the end of the frequency list to mark
+        it as recently used
+        returns none if the key is not found
+        """
         if key is not None and key in self.cache_data:
             self.cache_data.move_to_end(key)
             self.freq_count[key] += 1
