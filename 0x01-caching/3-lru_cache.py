@@ -7,7 +7,14 @@ from base_caching import BaseCaching
 
 
 class LRUCache(BaseCaching):
+    """
+    LRU Caching system
+    implements an LRU caching mechanism
+    """
     def __init__(self):
+        """
+        Initialize the LRUCache instance
+        """
         super().__init__()
         self.cache_data = OrderedDict()
 
