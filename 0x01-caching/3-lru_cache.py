@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+"""
+LRU Caching sytem
+"""
+from collections import OrderedDict
+from base_caching import BaseCaching
+
+
+class LRUCache(BaseCaching):
+    def __init__(self):
+        super().__init__()
+        self.cache_data = OrderedDict()
+
+    def put(self, key, item):
+        """
+        Add or Update an item in th cache
+        """
+        if key is None or item is None:
+            return
+        if key in self.cache_data:
+            self.cache_data.move_to_end(key)
+        self.cache_data[key] = item
+        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+            discard, _ = self.cache_data.popitem(last=False)
+            print(f"DISCARD: {discard}")
+
+    def get(self, key):
+        """
+        Retrieve an item from the cache
+        """
+        return self.cache_data.get(key, None)
