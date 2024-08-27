@@ -27,6 +27,9 @@ users = {
 
 
 def get_user():
+    """
+    get_user function retrive based on their id
+    """
     login_id = request.args.get("login_as")
     if login_id:
         return users.get(int(login_id))
@@ -35,6 +38,9 @@ def get_user():
 
 @app.before_request
 def before_request():
+    """
+    called before request
+    """
     g.user = get_user()
 
 
